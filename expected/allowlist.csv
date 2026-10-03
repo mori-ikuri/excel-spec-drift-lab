@@ -1,0 +1,7 @@
+版(before/after),ファイル,シート名,セル番地または行番号,中身,理由
+before,fixtures/src/before/CustomerForm.Designer.cs,,8,        private TextBox txtCusNm = new TextBox,顧客名入力欄のフィールド宣言とインスタンス生成。桁数の指定はS5にあり、この行では指定しない。
+before,fixtures/src/before/CustomerForm.Designer.cs,,15,        private TextBox txtCusNmKana = new TextBox,顧客名カナ入力欄のフィールド宣言とインスタンス生成。別項目の構築であり桁数は指定しない。
+before,fixtures/src/before/CustomerForm.Designer.cs,,27,"            Controls.AddRange(new Control[] { txtCusNm, txtCusNmKana });",2個の入力欄をフォームへ登録する配置処理。名前の参照のみで桁数は指定しない。
+after,fixtures/src/after/CustomerForm.Designer.cs,,8,        private TextBox txtCusNm = new TextBox,顧客名入力欄のフィールド宣言とインスタンス生成。桁数の指定はS5にあり、この行では指定しない。
+after,fixtures/src/after/CustomerForm.Designer.cs,,15,        private TextBox txtCusNmKana = new TextBox,顧客名カナ入力欄のフィールド宣言とインスタンス生成。別項目の構築であり桁数は指定しない。
+after,fixtures/src/after/CustomerForm.Designer.cs,,27,"            Controls.AddRange(new Control[] { txtCusNm, txtCusNmKana });",2個の入力欄をフォームへ登録する配置処理。名前の参照のみで桁数は指定しない。
