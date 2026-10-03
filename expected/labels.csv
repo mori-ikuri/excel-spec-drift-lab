@@ -1,0 +1,17 @@
+ID,beforeファイル,afterファイル,シート名,セル番地または行番号,before内容,after内容,ラベル,理由
+E1,fixtures/docs/before/DB定義書.xlsx,fixtures/docs/after/DB定義書.xlsx,テーブル定義,I16,顧客名 / CUSTOMER_NAME / NVARCHAR(20),顧客名 / CUSTOMER_NAME / NVARCHAR(30),変更済み,変更の起点。顧客名の列型を依頼どおりNVARCHAR(30)へ拡張済み。
+E2,fixtures/docs/before/DB定義書.xlsx,fixtures/docs/after/DB定義書.xlsx,テーブル定義,I20,顧客名カナ / CUSTOMER_NAME_KANA / NVARCHAR(20),顧客名カナ / CUSTOMER_NAME_KANA / NVARCHAR(20),C,顧客名カナは顧客名とは別項目であり、依頼の対象ではない。
+E3,fixtures/docs/before/画面設計書.xlsx,fixtures/docs/after/画面設計書.xlsx,画面仕様,C12,顧客名・最大20桁,顧客名・最大30桁,変更済み,項目一覧の最大桁数を依頼どおり30桁へ更新済み。
+E4,fixtures/docs/before/画面設計書.xlsx,fixtures/docs/after/画面設計書.xlsx,画面仕様,C21,顧客名は20文字以内,顧客名は20文字以内,A,入力チェックが20文字のままで、30文字を許可する仕様と一致しない。
+E5,fixtures/docs/before/画面設計書.xlsx,fixtures/docs/after/画面設計書.xlsx,画面仕様,C30,SELECT CUSTOMER_NAME FROM CUSTOMER WHERE CUSTOMER_ID = @id;,SELECT CUSTOMER_NAME FROM CUSTOMER WHERE CUSTOMER_ID = @id;,C,列名を参照するSELECT文は桁数を制限していないため変更不要。
+E6,fixtures/docs/before/帳票設計書.xlsx,fixtures/docs/after/帳票設計書.xlsx,帳票仕様,C12,顧客名・印字桁20,顧客名・印字桁20,A,印字桁が20のままで、拡張後の顧客名を全桁印字できない。
+E7,fixtures/docs/before/帳票設計書.xlsx,fixtures/docs/after/帳票設計書.xlsx,帳票仕様,C21,顧客名,顧客名,C,見出しは項目の名称だけであり桁数変更に伴う更新は不要。
+E8,fixtures/docs/before/機能詳細設計書.xlsx,fixtures/docs/after/機能詳細設計書.xlsx,処理仕様,C12,顧客名を20文字で切り詰める,顧客名を20文字で切り詰める,A,20文字で切り詰める処理仕様は拡張後の値を欠落させるため更新が必要。
+S1,fixtures/src/before/Columns.cs,fixtures/src/after/Columns.cs,,6,"        public const string CUSTOMER_NAME = ""CUSTOMER_NAME"";","        public const string CUSTOMER_NAME = ""CUSTOMER_NAME"";",C,列名の文字列定数は桁数を制限していないため変更不要。
+S2,fixtures/src/before/Customer.cs,fixtures/src/after/Customer.cs,,6,        public string CustomerName { get; set; } // 顧客名(20桁),        public string CustomerName { get; set; } // 顧客名(20桁),B,string型そのものは桁数を制限しないが、コメントの20桁という説明が古い。
+S3,fixtures/src/before/CustomerForm.cs,fixtures/src/after/CustomerForm.cs,,16,            var cusNm = data[Columns.CUSTOMER_NAME].ToString();,            var cusNm = data[Columns.CUSTOMER_NAME].ToString();,C,列名で値を取得して文字列化する処理は桁数を制限しない。
+S4,fixtures/src/before/CustomerForm.cs,fixtures/src/after/CustomerForm.cs,,17,            if (cusNm.Length > 20),            if (cusNm.Length > 20),A,長さ20を超える入力を拒否するため、拡張後の有効な値を受け付けられない。
+S5,fixtures/src/before/CustomerForm.Designer.cs,fixtures/src/after/CustomerForm.Designer.cs,,25,            txtCusNm.MaxLength = 20;,            txtCusNm.MaxLength = 20;,A,顧客名入力欄のMaxLengthが20のままで30桁を入力できない。
+S6,fixtures/src/before/CustomerForm.Designer.cs,fixtures/src/after/CustomerForm.Designer.cs,,26,            txtCusNmKana.MaxLength = 20;,            txtCusNmKana.MaxLength = 20;,C,顧客名カナ入力欄は別項目であり依頼の対象ではない。
+S7,fixtures/src/before/CustomerForm.cs,fixtures/src/after/CustomerForm.cs,,21,            txtCusNm.Text = cusNm;,            txtCusNm.Text = cusNm;,C,取得した値をTextへ代入する処理は独自の桁数制限を持たない。
+S8,fixtures/src/before/Columns.cs,fixtures/src/after/Columns.cs,,7,"        public const string CUSTOMER_NAME_KANA = ""CUSTOMER_NAME_KANA"";","        public const string CUSTOMER_NAME_KANA = ""CUSTOMER_NAME_KANA"";",C,顧客名カナの列名定数は別項目であり依頼の対象ではない。

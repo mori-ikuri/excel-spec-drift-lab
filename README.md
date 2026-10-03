@@ -1,0 +1,3 @@
+設計書とソースをまたいだ変更漏れを見つける道具を評価するための、架空の検証データです。`fixtures/` は変更依頼と変更前後の設計書・C#ソース、`expected/` は正解ラベルとセル値の出力、`scripts/` は生成・出力・検証スクリプトを収めます。設計書は日本の業務システムでよく見る体裁を再現しています。
+
+This repository contains fictional test data for evaluating tools that detect missed changes across design documents and source code. `fixtures/` contains the change request and before/after Excel documents and C# source files; `expected/` contains reference labels and cell-value dumps; `scripts/` contains generation, dump, and validation scripts. The workbooks reproduce a design-document layout commonly seen in Japanese business systems.
