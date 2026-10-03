@@ -10,6 +10,7 @@ import argparse
 import csv
 import re
 from collections import Counter
+from copy import copy
 from pathlib import Path
 
 from openpyxl import load_workbook
@@ -51,7 +52,11 @@ def layout(ws):
         "columns": [(name, d.width, d.hidden, d.min, d.max)
                     for name, d in sorted(ws.column_dimensions.items())],
         "rows": [(number, d.height, d.hidden) for number, d in sorted(ws.row_dimensions.items())],
-        "cell_styles": [(cell.coordinate, tuple(cell._style or ()), cell.number_format)
+        # Style IDs are workbook-local; compare the underlying attribute values.
+        "cell_styles": [(cell.coordinate, copy(cell.font), copy(cell.fill),
+                         copy(cell.border), copy(cell.alignment),
+                         copy(cell.protection), cell.number_format,
+                         cell.quotePrefix, cell.pivotButton)
                         for row in ws.iter_rows() for cell in row],
         "print_area": str(ws.print_area),
         "margins": str(ws.page_margins),
